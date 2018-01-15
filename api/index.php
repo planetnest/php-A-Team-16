@@ -1,8 +1,9 @@
 <?php
-
+require('../vendor/autoload.php');
 require('api.php');
 
 $API = new API;
+echo 'Inside api';
 
 //Enpoint
 //GET
