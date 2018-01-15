@@ -28,7 +28,7 @@ class API
             if($this->request[2] == $value->{(string)$this->request[1]} )
             array_push($requestedData, $value);
         }
-        return ($requestedData);
+        var_dump ($requestedData);
     }
 
     public function post()
