@@ -3,87 +3,59 @@
 class API
 {
     protected $data;
-    protected $keys;
     public $request;
-    public $valid = false;
 
     public function __construct()
-    {
+    { 
         $this->data = json_decode(file_get_contents('data.json'));
-        $this->keys = json_decode(file_get_contents('key.json'));
-        
-        $this->request = $this->__parseRequest();
-
-        $this->__validateKey();
-        
-        if($this->valid)$this->__selectVerb();
+        $this->request = urldecode($_SERVER['QUERY_STRING']);
     }
 
     public function get()
     {
-        $requestedData = [];
-
         foreach ($this->data as $key => $value) {
-            //any conditions
-            if($this->request[2] == $value->{(string)$this->request[1]} )
-            array_push($requestedData, $value);
-        }
-        var_dump ($requestedData);
+            
+           foreach($value as $key=>$value) {
+               try {
+                   if($key === $this->request) print_r($key);
+               }catch(Exception $e) {
+                    
+               }
+               
+                foreach ($value as $key => $value) {
+                    try {
+                        if($key === $this->request) print_r($value);
+                    }catch(Exception $e) {
+                            
+                    }                  
+                }
+
+           }
+       }
     }
 
     public function post()
     {
-        //validate json fields
-        $this->request[1] = isset($this->request[1])? json_decode($this->request[1]) : null ;
-        array_push($this->data, $this->request[1]);
-        file_put_contents ('data.json', json_encode ( $this->data ) ) ;
-        echo 'new data added';
+        $key = $this->keyGen();
+        $data = [$key=>(json_decode($this->request, true))];
+        array_push($this->data, $data);
+        file_put_contents('data.json', json_encode($this->data));
+        echo $_SERVER['SERVER_NAME'].'/php-A-Team-16/api/'.$key;
+        
     }
-
-    public function put()
+ 
+    public function keyGen()
     {
-        foreach ($this->data as $key => $value) { 
-            if($this->request[1] == $value->_id ) {
-                 $value->{($this->request[2])} = $this->request[3];
-            } 
-              
-        }  
-         file_put_contents('data.json', json_encode($this->data));
-         echo 'file modified';
-    }
-
-    public function delete()
-    {
-        $data = [];
-        foreach($this->data as $key => $value) {
-            if($this->request[1] !== $value->_id){
-                array_push($data, $value);
-            }
-        }
-        file_put_contents('data.json', json_encode($data));
-        echo 'removed record';
-    } 
-
-    private function __parseRequest()
-    {
-        return explode('/', rtrim(ltrim($_SERVER['PATH_INFO'], '/'), '/'));
-    }  
-
-    private function __selectVerb()
-    {
-        if($_SERVER['REQUEST_METHOD'] === 'POST') $this->post();
-        if($_SERVER['REQUEST_METHOD'] === 'GET') $this->get();
-        if($_SERVER['REQUEST_METHOD'] === 'PUT') $this->put();
-        if($_SERVER['REQUEST_METHOD'] === "DELETE") $this->delete();
-    } 
-
-    private function __validateKey()
-    {
-        foreach ($this->keys as $key => $value) {
-            if($this->request[0] === $value->key ){
-                $this->valid = true;
-            } 
-        }
+        $url = str_shuffle('asdfg0987654321FCXDRESZAWQ');
+        foreach ($this->data as $key => $value) {
+           foreach($value[0] as $key) {
+               if($key === $url){
+                   $this->keyGen();
+               } else {
+                   return $url;
+               }
+           }
+       }
     }
 
 }

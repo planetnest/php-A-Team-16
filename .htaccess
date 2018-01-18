@@ -1,0 +1,5 @@
+Options -Indexes
+<FilesMatch "composer\.json|procfile">
+Order allow,deny
+deny from all
+</FilesMatch>

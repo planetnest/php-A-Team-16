@@ -2,17 +2,9 @@
 
 Use postman to simulate GET,PUT,DELETE,POST request
 
-## Enpoints
-GET
-key/field_searching_for/values_searching_for
+go to server.address/php-A-Team-16/savejson to save json data
+go to server.address/php-A-Team-16/api to get your saved json data
 
-POST
-key/data_in_json
 
-PUT
-key/id/data_field_to_search_for/values_to_replace
 
-DELETE
-key/id
-
-http://apidevacc.herokuapp.com/api/index.php
+https://murmuring-ocean-31428.herokuapp.com/ | https://git.heroku.com/murmuring-ocean-31428.git
