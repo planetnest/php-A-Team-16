@@ -39,7 +39,7 @@ class API
         $key = $this->keyGen();
         $data = [$key=>(json_decode($this->request, true))];
         array_push($this->data, $data);
-        // file_put_contents('data.json', json_encode($this->data));
+        file_put_contents('data.json', json_encode($this->data));
         echo $_SERVER['SERVER_NAME'].'/api/'.$key;
         
     }
