@@ -17,7 +17,7 @@ class API
             
            foreach($value as $key=>$value) {
                try {
-                   if($key === $this->request) print_r($key);
+                   if($key === $this->request) print_r($value);
                }catch(Exception $e) {
                     
                }

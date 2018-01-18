@@ -1,5 +1,4 @@
 <?php
-require('../vendor/autoload.php');
 require('api.php');
 
 if(preg_match("/[,:\"{}]+/", $_SERVER['QUERY_STRING']) ){

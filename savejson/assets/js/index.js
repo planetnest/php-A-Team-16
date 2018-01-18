@@ -4,7 +4,6 @@ $(document).ready(function() {
         let json = $('textarea').val()
         try {
             $.parseJSON(json)
-            $('.form-url').val('valid json url')
             $('.error').text('')
 
             $.ajax({
