@@ -1,11 +1,9 @@
 <?php
 require('api.php');
 
-if(preg_match("/[,:\"{}]+/", $_SERVER['QUERY_STRING']) ){
-    $API = new API;
-    $API->post();
-} else {
-    $API = new API;
-    $API->get();
-}
+// var_dump($_POST); die();
+// var_dump($_SERVER); die();
+
+$API = new API;
+
 

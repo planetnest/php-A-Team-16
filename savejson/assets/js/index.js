@@ -1,15 +1,15 @@
 $(document).ready(function() {
     $('form').submit(function(e) {
-        
+        e.preventDefault();
         let json = $('textarea').val()
         try {
             $.parseJSON(json)
             $('.error').text('')
 
             $.ajax({
-            type: "GET",
-            data: json,
-            url: "../api",
+            type:"POST",
+            data: {'json':json},
+            url: "../api/index.php",
             success: function(data){
                     // $('#output').html(data)
                     $('.form-url').val(data)
@@ -20,6 +20,6 @@ $(document).ready(function() {
             $('.error').text('Invalid JSON format')
         }
         
-        e.preventDefault()
+        
     })
 }) 
