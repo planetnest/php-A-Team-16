@@ -7,7 +7,7 @@ class API
 
     public function __construct()
     { 
-        $this->data = [json_decode(file_get_contents('data.json'))];
+        $this->data = json_decode(file_get_contents('data.json'));
         $this->request = explode('/', trim(urldecode($_SERVER['QUERY_STRING']), '/'));
         
         if(isset($this->request[1]) && ($this->request[1] == 'update') ){
@@ -26,13 +26,13 @@ class API
     {  
         foreach ($this->data as $key => $data) {
            
-           foreach($data as $key=>$value) {            
+           foreach($data as $key=>$value) {
                //returns regular get request with just key
                try {
                    if($key === $this->request[0] && (count($this->request) == 1 )) var_dump($value);
-               }catch(Exception $e) {                   
+               }catch(Exception $e) {    
                }               
-           }
+          }
        }
     }
 
@@ -52,9 +52,10 @@ class API
         if(isset($this->request[1]) && ($this->request[1] == 'update') ) {
             for ($i=0; $i < count($this->data); $i++) { 
                 $data += ((array)$this->data[$i]);
-            }
+            }            
              $data[(string)$this->request[0]] = json_decode($_POST['json']);
-             file_put_contents('data.json', [json_encode($data)] );
+             $allData = '['.json_encode($data).']';
+             file_put_contents('data.json', $allData );
              echo 'updated';
         }        
     }
@@ -67,8 +68,8 @@ class API
                 $data += ((array)$this->data[$i]);
             }
              unset($data[(string)$this->request[0]]);
-
-             file_put_contents('data.json', json_encode($data));
+             $allData = '['.json_encode($data).']';
+             file_put_contents('data.json', $allData);
              echo 'deleted';
         } 
     }
